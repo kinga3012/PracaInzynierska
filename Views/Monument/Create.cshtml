@@ -24,7 +24,9 @@
     <div class="form-group">
         @Html.LabelFor(model => model.selectCategories, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-                @Html.DropDownListFor(x => Model.selectedCategoryId, new SelectList(Model.selectCategories, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id = "Category" })
+                <label asp-for="selectedCategoryId">Kategoria:</label>
+                <select class="form-control" asp-items="Model.selectCategories" asp-for="selectedCategoryId"></select>
+                @*@Html.DropDownListFor(x => Model.selectedCategoryId, new SelectList(Model.selectCategories, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id = "Category" })*@
                 @Html.ValidationMessageFor(x => x.selectedCityId, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -38,7 +40,9 @@
     <div class="form-group">
         @Html.LabelFor(model => model.selectCities, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-                @Html.DropDownListFor(model => model.selectedCityId, (IEnumerable<SelectListItem>)Model.selectCities, new { @class = "form-control" })
+                <label asp-for="selectedCityId">Miasto:</label>
+                <select class="form-control" asp-items="Model.selectCities" asp-for="selectedCityId"></select>
+                @*@Html.DropDownListFor(model => model.selectedCityId, (IEnumerable<SelectListItem>)Model.selectCities, new { @class = "form-control" })*@
         </div>
     </div>
         <div class="form-group">

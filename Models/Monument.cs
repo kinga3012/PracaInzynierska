@@ -21,6 +21,7 @@ namespace PracaInzynierska.Models
         public Category Category { get; set; }
 
     }
+
     public class MonumentCreateModel 
     {
 

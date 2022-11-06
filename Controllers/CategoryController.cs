@@ -22,6 +22,7 @@ namespace PracaInzynierska.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(Category category)
         {
