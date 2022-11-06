@@ -13,31 +13,31 @@ namespace PracaInzynierska.Models
         public string Image { get; set; }
         [ForeignKey("City")]
         public int CityId { get; set; }
-        public City City { get; set; }
+        public virtual City? City { get; set; }
         [MaxLength(200)]
         public string Descripton { get; set; }
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category? Category { get; set; }
 
     }
 
-    public class MonumentCreateModel 
-    {
+    //public class MonumentCreateModel 
+    //{
 
-        public Monument Monument { get; set; }
-        public  SelectList selectCategories { get; set; }
-        public int selectedCategoryId { get; set; }
+    //    public Monument Monument { get; set; }
+    //    public  SelectList? selectCategories { get; set; }
+    //    public int selectedCategoryId { get; set; }
 
-        public SelectList selectCities { get; set; }
-        public int selectedCityId { get; set; }
+    //    public SelectList? selectCities { get; set; }
+    //    public int selectedCityId { get; set; }
 
-        public MonumentCreateModel(Monument monument, List<Category> categories, List<City> cities)
-        {
-            Monument = monument;
-            this.selectCategories = new SelectList(categories, "Id", "Name");
-            this.selectCities = new SelectList(cities, "Id", "Name");
-        }
-        public MonumentCreateModel() { }
-    }
+    //    public MonumentCreateModel(Monument monument, List<Category> categories, List<City> cities)
+    //    {
+    //        Monument = monument;
+    //        this.selectCategories = new SelectList(categories, "Id", "Name");
+    //        this.selectCities = new SelectList(cities, "Id", "Name");
+    //    }
+    //    public MonumentCreateModel() { }
+    //}
 }

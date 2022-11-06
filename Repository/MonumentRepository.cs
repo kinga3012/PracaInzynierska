@@ -31,9 +31,10 @@ namespace PracaInzynierska.Repository
             return await _context.Monuments.ToListAsync();
         }
 
-        public async Task<Monument> GetByIdAsync(int id)
+        public async Task<Monument?> GetByIdAsync(int id)
         {
-            return await _context.Monuments.Include(i => i.Category).Include(c => c.City).FirstOrDefaultAsync(i => i.Id == id);
+            var monument = await _context.Monuments.Include(x => x.Category).Include(y => y.City).FirstOrDefaultAsync(x => x.Id == id);
+            return monument;
         }
 
         public async Task<IEnumerable<Monument>> GetMonumentsByCategory(string category)

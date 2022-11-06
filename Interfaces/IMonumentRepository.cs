@@ -5,7 +5,7 @@ namespace PracaInzynierska.Interfaces
     public interface IMonumentRepository
     {
         Task<IEnumerable<Monument>> GetAll();
-        Task<Monument> GetByIdAsync(int id);
+        Task<Monument?> GetByIdAsync(int id);
         Task<IEnumerable<Monument>> GetMonumentsByCity(string city);
         Task<IEnumerable<Monument>> GetMonumentsByCategory(string category);
         bool Add(Monument monument);

@@ -29,7 +29,7 @@ namespace PracaInzynierska.Repository
            return await _context.Categories.ToListAsync();
         }
 
-        public async Task<Category> GetByIdAsync(int id)
+        public async Task<Category?> GetByIdAsync(int id)
         {
             return await _context.Categories.FirstOrDefaultAsync(i => i.Id == id);
         }

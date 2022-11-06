@@ -1,4 +1,4 @@
-﻿@model MonumentCreateModel
+﻿@model Monument
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -7,48 +7,43 @@
 <form method="post" asp-action="Create">
   <div class="form-row">
     <div class="form-group col-md-6">
-      <label asp-for="Monument.Name">Nazwa:</label>
-      <input asp-for="Monument.Name" class="form-control">
-      <span asp-validation-for="Monument.Name" class="text-danger"></span>
+      <label asp-for="Name">Nazwa:</label>
+      <input asp-for="Name" class="form-control">
+      <span asp-validation-for="Name" class="text-danger"></span>
     </div>
         <div class="form-group col-md-6">
-            <label asp-for="Monument.Image">Link do zdjęcia:</label>
-            <input asp-for="Monument.Image" class="form-control">
-            <span asp-validation-for="Monument.Image" class="text-danger"></span>
+            <label asp-for="Image">Link do zdjęcia:</label>
+            <input asp-for="Image" class="form-control">
+            <span asp-validation-for="Image" class="text-danger"></span>
         </div>
-@*        <div class="form-group col-md-4">
-            <label asp-for="Monument.CategoryId">Kategoria:</label>
-            <select class="form-control" asp-items="Model.selectCategories" asp-for="selectedCategoryId">
+        <div class="form-group col-md-4">
+            <label asp-for="CategoryId">Kategoria:</label>
+            <select class="form-control" asp-items="@ViewBag.Categories" asp-for="CategoryId">
             </select>
-        </div>*@
-    <div class="form-group">
-        @Html.LabelFor(model => model.selectCategories, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-                <label asp-for="selectedCategoryId">Kategoria:</label>
-                <select class="form-control" asp-items="Model.selectCategories" asp-for="selectedCategoryId"></select>
-                @*@Html.DropDownListFor(x => Model.selectedCategoryId, new SelectList(Model.selectCategories, "Value", "Text"), htmlAttributes: new { @class = "form-control", @id = "Category" })*@
-                @Html.ValidationMessageFor(x => x.selectedCityId, "", new { @class = "text-danger" })
         </div>
-    </div>
-@*        <div class="form-group col-md-4">
-            <label asp-for="Monument.CityId">Miasto:</label>
-            <select class="form-control" asp-items="Model.selectCities" asp-for="selectedCityId">
-                <option selected>Choose...</option>
-                <option>...</option>
+
+
+
+        <div class="form-group col-md-4">
+            <label asp-for="CityId">Miasto:</label>
+            <select class="form-control" asp-items="@ViewBag.Cities" asp-for="CityId">
             </select>
-        </div>*@
-    <div class="form-group">
-        @Html.LabelFor(model => model.selectCities, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-                <label asp-for="selectedCityId">Miasto:</label>
-                <select class="form-control" asp-items="Model.selectCities" asp-for="selectedCityId"></select>
-                @*@Html.DropDownListFor(model => model.selectedCityId, (IEnumerable<SelectListItem>)Model.selectCities, new { @class = "form-control" })*@
         </div>
-    </div>
+
+
+
+
+
+
+
+
+
+
+
         <div class="form-group">
-            <label asp-for="Monument.Descripton">Opis: </label>
-            <textarea asp-for="Monument.Descripton" class="form-control" rows="3"></textarea>
-            <span asp-validation-for="Monument.Descripton" class="text-danger"></span>
+            <label asp-for="Descripton">Opis: </label>
+            <textarea asp-for="Descripton" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Descripton" class="text-danger"></span>
         </div>
     </div>
   <br />
