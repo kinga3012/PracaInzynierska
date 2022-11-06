@@ -41,17 +41,6 @@ namespace PracaInzynierska.Controllers
             ViewBag.Categories = new SelectList(categories, "Id", "Name");
             ViewBag.Cities = new SelectList(cities, "Id", "Name");
             return View();
-            //Monument monument = new Monument();
-
-            //IEnumerable<Category> result = await _categoryRepository.GetAll();
-            //List<Category> categories = new List<Category>(result);
-
-            //IEnumerable<City> result2 = await _cityRepository.GetAll();
-            //List<City> cities = new List<City>(result2);
-
-            //MonumentCreateModel vm = new MonumentCreateModel(monument, categories, cities);
-
-            //return View(vm);
         }
 
         [HttpPost]
