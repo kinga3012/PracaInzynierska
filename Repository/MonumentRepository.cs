@@ -54,7 +54,8 @@ namespace PracaInzynierska.Repository
 
         public bool Update(Monument monument)
         {
-            throw new NotImplementedException();
+            _context.Update(monument);
+            return Save();
         }
     }
 }

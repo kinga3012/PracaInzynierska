@@ -31,7 +31,25 @@ namespace PracaInzynierska.Controllers
             _categoryRepository.Add(category);
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var category = await _categoryRepository.GetByIdAsync(id);
 
+            if (category == null)
+                return View("Error");
+
+            return View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Category category)
+        {
+            if (category != null)
+                _categoryRepository.Update(category);
+            else
+                return View("Error");
+            return RedirectToAction("Index");
+        }
 
     }
 }

@@ -61,5 +61,29 @@ namespace PracaInzynierska.Controllers
             ViewBag.Cities = new SelectList(cities, "Id", "Name");
             return View();
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var monument = await _monumentRepository.GetByIdAsync(id);
+
+            if (monument == null)
+                return View("Error");
+
+            var categories = await _categoryRepository.GetAll();
+            var cities = await _cityRepository.GetAll();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Cities = new SelectList(cities, "Id", "Name");
+            return View(monument);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Monument monument)
+        {
+            if(monument != null)
+                _monumentRepository.Update(monument);
+            else
+                return View("Error");
+            return RedirectToAction("Index");
+        }
     }
 }

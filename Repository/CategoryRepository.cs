@@ -42,7 +42,8 @@ namespace PracaInzynierska.Repository
 
         public bool Update(Category category)
         {
-            throw new NotImplementedException();
+            _context.Update(category);
+            return Save();
         }
     }
 }

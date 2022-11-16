@@ -42,7 +42,8 @@ namespace PracaInzynierska.Repository
 
         public bool Update(City city)
         {
-            throw new NotImplementedException();
+            _context.Update(city);
+            return Save();
         }
     }
 }
