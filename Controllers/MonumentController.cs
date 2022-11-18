@@ -25,7 +25,12 @@ namespace PracaInzynierska.Controllers
             IEnumerable<Monument> monuments = await _monumentRepository.GetAll();
             return View(monuments);
         }
-
+        //[HttpPost]
+        //public async Task<IActionResult> Index(string category)
+        //{
+        //    IEnumerable<Monument> monuments = await _monumentRepository.GetMonumentsByCategory(category);
+        //    return View(monuments);
+        //}
         public async Task<IActionResult> Detail(int id)
         {
             Monument? monument = await _monumentRepository.GetByIdAsync(id);
@@ -83,6 +88,22 @@ namespace PracaInzynierska.Controllers
                 _monumentRepository.Update(monument);
             else
                 return View("Error");
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Monument? monument = await _monumentRepository.GetByIdAsync(id);
+            return View(monument);
+        }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteMonument(int id)
+        {
+            Monument? monument = await _monumentRepository.GetByIdAsync(id);
+            if (monument == null)
+                return View("Error");
+            _monumentRepository.Delete(monument);
+            _monumentRepository.Save();
             return RedirectToAction("Index");
         }
     }
