@@ -19,6 +19,11 @@
             <div class="stats mt-2">
                 <p>Miasto: @Model.City.Name</p>
                 <p>Opis: @Model.Descripton</p>
+                @{
+                    string[] source = Model.Image.Split("/");
+                    if (source.Length>=3)
+                }
+                <p class="mt-0 text-black-50">Źródło: @source[2]</p>
             </div>
         </div>
     </div>

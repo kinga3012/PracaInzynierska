@@ -1,12 +1,21 @@
-﻿@model IEnumerable<City>
-
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<City>
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 <h1> MIASTA </h1>
-<a type="btn btn-success" asp-controller="City" asp-action="Create" class="btn btn-sm btn-outline-secondary">Dodaj nowe</a>
+@if (SignInManager.IsSignedIn(User))
+{
+    <a type="btn btn-success" asp-controller="City" asp-action="Create" class="btn btn-sm btn-outline-secondary">Dodaj nowe</a>
+}
+else
+{
+    <p> Aby móc dodawać, usuwać oraz edytować wpisy - zaloguj się!</p>
+}
 <main>
 
     <div class="album py-5 bg-light">
@@ -21,14 +30,16 @@
                                 <p class="card-text">Kod pocztowy: @item.ZipCode</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        @*<button type="button" class="btn btn-sm btn-outline-secondary">Edytuj</button>*@
-                                        <a type="button" class="btn btn-sm btn-outline-secondary" asp-controller="City" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>
+                                        @if (SignInManager.IsSignedIn(User))
+                                        {
+                                            <a type="button" class="btn btn-sm btn-outline-secondary" asp-controller="City" asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                   </div> 
+                   }
             </div>
         </div>
     </div>

@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using PracaInzynierska.Interfaces;
 using PracaInzynierska.Models;
+using PracaInzynierska.Repository;
 using System.Diagnostics;
+using X.PagedList;
 
 namespace PracaInzynierska.Controllers
 {
@@ -19,10 +22,24 @@ namespace PracaInzynierska.Controllers
             _categoryRepository = categoryRepository;
             _cityRepository = cityRepository;
         }
-       
-        public async Task<IActionResult> Index()
+
+        //public async Task<IActionResult> Index()
+        //{
+        //    IEnumerable<Monument> monuments = await _monumentRepository.GetAll();
+        //    return View(monuments);
+        //}
+        public IActionResult Index(string filter, string sort, int? page = 1)
         {
-            IEnumerable<Monument> monuments = await _monumentRepository.GetAll();
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sort) ? "name_desc" : "";
+
+            if (page != null && page < 1)
+            {
+                page = 1;
+            }
+            var pageSize = 3;
+
+            var monuments = _monumentRepository.GetAllPaged(page ?? 1, pageSize);
+
             return View(monuments);
         }
         //[HttpPost]

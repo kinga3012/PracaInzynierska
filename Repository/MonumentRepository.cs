@@ -3,6 +3,7 @@ using PracaInzynierska.Data;
 using PracaInzynierska.Interfaces;
 using PracaInzynierska.Models;
 using System.ComponentModel;
+using X.PagedList;
 
 namespace PracaInzynierska.Repository
 {
@@ -30,7 +31,10 @@ namespace PracaInzynierska.Repository
         {
             return await _context.Monuments.ToListAsync();
         }
-
+        public IPagedList<Monument> GetAllPaged(int page, int pageSize)
+        {
+            return _context.Monuments.ToPagedList(page, pageSize);
+        }
         public async Task<Monument?> GetByIdAsync(int id)
         {
             var monument = await _context.Monuments.Include(x => x.Category).Include(y => y.City).FirstOrDefaultAsync(x => x.Id == id);

@@ -26,7 +26,7 @@ namespace PracaInzynierska.Repository
 
         public async Task<IEnumerable<Category>> GetAll()
         {
-           return await _context.Categories.ToListAsync();
+           return await _context.Categories.OrderBy(c => c.Name).ToListAsync();
         }
 
         public async Task<Category?> GetByIdAsync(int id)
