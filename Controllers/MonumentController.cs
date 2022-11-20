@@ -28,18 +28,26 @@ namespace PracaInzynierska.Controllers
         //    IEnumerable<Monument> monuments = await _monumentRepository.GetAll();
         //    return View(monuments);
         //}
-        public IActionResult Index(string filter, string sort, int? page = 1)
+        public async Task<IActionResult> Index(string? city, string? category, int? page = 1)
         {
-            ViewData["NameSortParm"] = String.IsNullOrEmpty(sort) ? "name_desc" : "";
-
+            var categories = await _categoryRepository.GetAll();
+            var cities = await _cityRepository.GetAll();
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.Cities = new SelectList(cities, "Id", "Name");
+            // ViewData["NameSortParm"] = String.IsNullOrEmpty(sort) ? "name_desc" : "";
+            int? cityInt = null;
+            int? categoryInt = null;
+            if(city != null && city != "All")
+                cityInt = int.Parse(city);
+            if(category != null && category != "All")
+                categoryInt = int.Parse(category);
             if (page != null && page < 1)
             {
                 page = 1;
             }
             var pageSize = 3;
 
-            var monuments = _monumentRepository.GetAllPaged(page ?? 1, pageSize);
-
+            IPagedList<Monument> monuments = _monumentRepository.GetAllPaged(cityInt, categoryInt, page ?? 1, pageSize);
             return View(monuments);
         }
         //[HttpPost]

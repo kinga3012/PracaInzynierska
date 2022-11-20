@@ -19,6 +19,27 @@ else
 {
     <p> Aby móc dodawać, usuwać oraz edytować wpisy - zaloguj się!</p>
 }
+
+
+<form method="get" asp-action="Index">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label>Miasto:</label>
+            <select name="city" class="form-control" asp-items="@ViewBag.Cities" asp-for="@ViewContext.HttpContext.Request.Query["city"]">
+                <option value="All">Wszystkie</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Kategoria:</label>
+            <select name="category" class="form-control" asp-items="@ViewBag.Categories" asp-for="@ViewContext.HttpContext.Request.Query["category"]">
+                <option value="All">Wszystkie</option>
+            </select>
+        </div>
+        </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Filtruj</button>
+</form>
+
 <main>
 
     <div class="album py-5 bg-light">
@@ -52,7 +73,7 @@ else
     </div>
 </main>
 <nav>
-    @Html.PagedListPager(Model, page => Url.Action("index", new { page = page }), new PagedListRenderOptions()
+    @Html.PagedListPager(Model, page => Url.Action("index", new { page = page, city = ViewContext.HttpContext.Request.Query["city"], category = ViewContext.HttpContext.Request.Query["category"] }), new PagedListRenderOptions()
     {
     ActiveLiElementClass = "active",
     PageClasses = new[]{ "page-link"},
