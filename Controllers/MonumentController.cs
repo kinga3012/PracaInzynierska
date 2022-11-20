@@ -37,10 +37,14 @@ namespace PracaInzynierska.Controllers
             // ViewData["NameSortParm"] = String.IsNullOrEmpty(sort) ? "name_desc" : "";
             int? cityInt = null;
             int? categoryInt = null;
-            if(city != null && city != "All")
+            if (city != null && city != "All")
+            {
                 cityInt = int.Parse(city);
-            if(category != null && category != "All")
+            }
+            if (category != null && category != "All")
+            {
                 categoryInt = int.Parse(category);
+            }
             if (page != null && page < 1)
             {
                 page = 1;

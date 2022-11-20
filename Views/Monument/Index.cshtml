@@ -22,16 +22,26 @@ else
 
 
 <form method="get" asp-action="Index">
+    @{
+        string selectedCity = "All";
+        string selectedCategory = "All";
+        var cityUrl = ViewContext.HttpContext.Request.Query["city"];
+        var categoryUrl = ViewContext.HttpContext.Request.Query["category"];
+        if(cityUrl.Count > 0)
+            selectedCity = cityUrl.First();
+        if(categoryUrl.Count > 0)
+            selectedCategory = categoryUrl.First();
+    }
     <div class="form-row">
         <div class="form-group col-md-6">
             <label>Miasto:</label>
-            <select name="city" class="form-control" asp-items="@ViewBag.Cities" asp-for="@ViewContext.HttpContext.Request.Query["city"]">
+                <select name="city" class="form-control" asp-items="@ViewBag.Cities" asp-for="@selectedCity">
                 <option value="All">Wszystkie</option>
             </select>
         </div>
         <div class="form-group col-md-6">
             <label>Kategoria:</label>
-            <select name="category" class="form-control" asp-items="@ViewBag.Categories" asp-for="@ViewContext.HttpContext.Request.Query["category"]">
+                <select name="category" class="form-control" asp-items="@ViewBag.Categories" asp-for="@selectedCategory">
                 <option value="All">Wszystkie</option>
             </select>
         </div>
