@@ -25,12 +25,16 @@ else
     @{
         string selectedCity = "All";
         string selectedCategory = "All";
+        string selectedSort = "AZ";
         var cityUrl = ViewContext.HttpContext.Request.Query["city"];
         var categoryUrl = ViewContext.HttpContext.Request.Query["category"];
+        var sortUrl = ViewContext.HttpContext.Request.Query["sort"];
         if(cityUrl.Count > 0)
             selectedCity = cityUrl.First();
         if(categoryUrl.Count > 0)
             selectedCategory = categoryUrl.First();
+        if (sortUrl.Count > 0)
+            selectedSort = sortUrl.First();
     }
     <div class="form-row">
         <div class="form-group col-md-6">
@@ -43,6 +47,13 @@ else
             <label>Kategoria:</label>
                 <select name="category" class="form-control" asp-items="@ViewBag.Categories" asp-for="@selectedCategory">
                 <option value="All">Wszystkie</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Sortowanie:</label>
+            <select name="sort" class="form-control" asp-for="@selectedSort">
+                <option value="AZ">A-Z</option>
+                <option value="ZA">Z-A</option>
             </select>
         </div>
         </div>
@@ -83,7 +94,7 @@ else
     </div>
 </main>
 <nav>
-    @Html.PagedListPager(Model, page => Url.Action("index", new { page = page, city = ViewContext.HttpContext.Request.Query["city"], category = ViewContext.HttpContext.Request.Query["category"] }), new PagedListRenderOptions()
+    @Html.PagedListPager(Model, page => Url.Action("index", new { page = page, city = ViewContext.HttpContext.Request.Query["city"], category = ViewContext.HttpContext.Request.Query["category"], sort = ViewContext.HttpContext.Request.Query["sort"] }), new PagedListRenderOptions()
     {
     ActiveLiElementClass = "active",
     PageClasses = new[]{ "page-link"},

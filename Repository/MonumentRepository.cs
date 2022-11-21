@@ -30,23 +30,35 @@ namespace PracaInzynierska.Repository
         {
             return await _context.Monuments.ToListAsync();
         }
-        public IPagedList<Monument> GetAllPaged(int? city, int? category, int page, int pageSize)
+
+        public IPagedList<Monument> GetAllPaged(int? city, int? category, string sort, int page, int pageSize)
         {
             if (city != null && category == null)
             {
-                return _context.Monuments.Where(monument => monument.CityId == city).ToPagedList(page, pageSize);
+                if (sort == "AZ")
+                    return _context.Monuments.Where(monument => monument.CityId == city).OrderBy(x => x.Name).ToPagedList(page, pageSize);
+                if (sort == "ZA")
+                    return _context.Monuments.Where(monument => monument.CityId == city).OrderByDescending(x => x.Name).ToPagedList(page, pageSize);
             }
 
             if (category != null && city == null)
             {
-                return _context.Monuments.Where(monument => monument.CategoryId == category).ToPagedList(page, pageSize);
+                if (sort == "AZ")
+                    return _context.Monuments.Where(monument => monument.CategoryId == category).OrderBy(x => x.Name).ToPagedList(page, pageSize);
+                if (sort == "ZA")
+                    return _context.Monuments.Where(monument => monument.CategoryId == category).OrderByDescending(x => x.Name).ToPagedList(page, pageSize);
             }
 
             if (city != null && category != null)
             {
-                return _context.Monuments.Where(monument => monument.CityId == city).Where(monument => monument.CategoryId == category).ToPagedList(page, pageSize);
+                if (sort == "AZ")
+                    return _context.Monuments.Where(monument => monument.CityId == city).Where(monument => monument.CategoryId == category).OrderBy(x => x.Name).ToPagedList(page, pageSize);
+                if (sort == "ZA")
+                    return _context.Monuments.Where(monument => monument.CityId == city).Where(monument => monument.CategoryId == category).OrderByDescending(x => x.Name).ToPagedList(page, pageSize);
             }
-            return _context.Monuments.ToPagedList(page, pageSize);
+            if (sort == "ZA")
+                return _context.Monuments.OrderByDescending(x => x.Name).ToPagedList(page, pageSize);
+            return _context.Monuments.OrderBy(x => x.Name).ToPagedList(page, pageSize);
         }
         public async Task<Monument?> GetByIdAsync(int id)
         {
