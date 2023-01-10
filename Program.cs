@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using PracaInzynierska.Data;
 using PracaInzynierska.Interfaces;
+using PracaInzynierska.Models;
 using PracaInzynierska.Repository;
+using SoapCore;
 
 namespace PracaInzynierska
 {
@@ -23,6 +26,11 @@ namespace PracaInzynierska
             builder.Services.AddScoped<ICityRepository, CityRepository>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<IMonumentRepository, MonumentRepository>();
+            // SOAP
+            builder.Services.AddTransient<ISoapService, SoapService>();
+
+            builder.Services.TryAddSingleton<ISoapService, SoapService>();
+            //
 
             var app = builder.Build();
 
@@ -48,6 +56,13 @@ namespace PracaInzynierska
 
             app.UseRouting();
 
+            // SOAP
+            app.UseEndpoints(endpoints =>
+            {
+             //   endpoints.UseSoapEndpoint<ISoapService>("/Service.svc", new SoapEncoderOptions(), SoapSerializer.DataContractSerializer);
+                endpoints.UseSoapEndpoint<ISoapService>("/Service.asmx", new SoapEncoderOptions(), SoapSerializer.XmlSerializer);
+            });
+            //
             app.UseAuthentication();
             app.UseAuthorization();
 

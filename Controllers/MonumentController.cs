@@ -37,7 +37,7 @@ namespace PracaInzynierska.Controllers
                 categoryInt = int.Parse(category);
             if (page != null && page < 1)
                 page = 1;
-            var pageSize = 3;
+            var pageSize = 6;
             IPagedList<Monument> monuments = _monumentRepository.GetAllPaged(cityInt, categoryInt, sort ?? "AZ", page ?? 1, pageSize);
             return View(monuments);
         }

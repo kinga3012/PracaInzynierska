@@ -8,6 +8,7 @@ namespace PracaInzynierska.Repository
     public class CityRepository : ICityRepository
     {
         private readonly ApplicationDbContext _context;
+
         public CityRepository(ApplicationDbContext context)
         {
             _context = context;
@@ -26,7 +27,7 @@ namespace PracaInzynierska.Repository
 
         public async Task<IEnumerable<City>> GetAll()
         {
-            return await _context.Cities.OrderBy(c => c.Name).ToListAsync();
+            return await _context.Cities.OrderBy(city => city.Name).ToListAsync();
         }
 
         public async Task<City> GetByIdAsync(int id)
