@@ -65,14 +65,21 @@ namespace PracaInzynierska.Models
             _monumentRepository.Add(monument);
             return await _monumentRepository.GetByIdAsync(monument.Id);
         }
+
         public async Task<Monument?> EditMonument(int id, string name, string image, int city, int category, string description)
         {
             Monument monument = await _monumentRepository.GetByIdAsync(id);
+            if (monument == null || name == null || name == "" || image == null || image == "" ||
+                await _cityRepository.GetByIdAsync(city) == null || await _categoryRepository.GetByIdAsync(category) == null ||
+                description == null || description == "")
+                return null;
+
             monument.Name = name;
             monument.Image = image;
             monument.CityId = city;
             monument.CategoryId = category;
             monument.Descripton = description;
+
             _monumentRepository.Update(monument);
             return await _monumentRepository.GetByIdAsync(monument.Id);
         }
@@ -80,7 +87,8 @@ namespace PracaInzynierska.Models
         public async Task<Monument?> DeleteMonument(int id)
         {
             Monument monument = await _monumentRepository.GetByIdAsync(id);
-            _monumentRepository.Delete(monument);
+            if (monument != null) 
+                _monumentRepository.Delete(monument);
             return await _monumentRepository.GetByIdAsync(id);
         }
 
