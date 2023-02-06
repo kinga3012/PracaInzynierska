@@ -56,15 +56,16 @@ namespace PracaInzynierska
 
             app.UseRouting();
 
-            // SOAP
-            app.UseEndpoints(endpoints =>
-            {
-             //   endpoints.UseSoapEndpoint<ISoapService>("/Service.svc", new SoapEncoderOptions(), SoapSerializer.DataContractSerializer);
-                endpoints.UseSoapEndpoint<ISoapService>("/Service.asmx", new SoapEncoderOptions(), SoapSerializer.XmlSerializer);
-            });
-            //
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // SOAP
+            app.UseEndpoints(endpoints =>
+             {
+               //   endpoints.UseSoapEndpoint<ISoapService>("/Service.svc", new SoapEncoderOptions(), SoapSerializer.DataContractSerializer);
+               endpoints.UseSoapEndpoint<ISoapService>("/Service.asmx", new SoapEncoderOptions(), SoapSerializer.XmlSerializer);
+            });
+            //
 
             app.MapControllerRoute(
                 name: "default",

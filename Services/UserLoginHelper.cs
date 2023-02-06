@@ -1,9 +1,10 @@
-﻿using System.Runtime.Serialization;
+﻿using Microsoft.AspNetCore.Identity;
+using System.Runtime.Serialization;
 
 namespace PracaInzynierska.Services
 {
     [DataContract]
-    public class UserHelper
+    public class UserLoginHelper
     {
         [DataMember]
         public bool LoginSuccess { get; set; }
@@ -11,12 +12,12 @@ namespace PracaInzynierska.Services
         [DataMember]
         public string UserName { get; set; }
 
-        public UserHelper(string userName, bool loginSuccess)
+        public UserLoginHelper(string userName, bool loginSuccess)
         {
             UserName = userName;
             LoginSuccess = loginSuccess;
         }
-        public UserHelper()
+        public UserLoginHelper()
         {
             UserName = "";
             LoginSuccess = false;

@@ -27,7 +27,7 @@ namespace PracaInzynierska.Models
         [OperationContract]
         public Task<Monument?> DeleteMonument(int id);
         [OperationContract]
-        public Task<UserHelper> Login(string email, string password);
+        public Task<UserLoginHelper> Login(string email, string password);
         [OperationContract]
         public Task<UserRegisterHelper> Register(string email, string password);
     }
